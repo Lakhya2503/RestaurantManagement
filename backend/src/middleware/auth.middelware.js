@@ -1,50 +1,43 @@
 import User from "../models/user.models.js"
 import ApiError from "../utils/ApiError.js"
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken"
 import { accessTokenSecret } from "../utils/config.js"
+import asyncHandler from "../utils/asyncHandler.js"
+
+export const verifyJWT = asyncHandler(async (req, res, next) => {
+  console.log(req.cookies.accessToken)
+  const token =
+    req.cookies?.accessToken ||
+    req.header("Authorization")?.replace("Bearer ", "")
 
 
-const VerifyJWT = async(req,_,next) => {
-    const token = req.cookies.accessToken
+  if (!token) {
+    throw new ApiError(401, "Unauthorized request")
+  }
 
+  const decodedToken = jwt.verify(token, accessTokenSecret)
 
-    try {
+  const user = await User.findById(decodedToken._id).select(
+    "-password -refreshToken"
+  )
 
-      const tokenVerify = await jwt.verify(token, accessTokenSecret)
+  if (!user) {
+    throw new ApiError(401, "Invalid access token")
+  }
 
-      console.log(tokenVerify);
+  req.user = user
+  next()
+})
 
+export const verifyAdmin = asyncHandler(async (req, res, next) => {
 
-      if(!tokenVerify) {
-        throw new ApiError(401, "Token used or Expired")
-      }
-
-      const user = await User.findById(tokenVerify._id)
-
-      if(!user) {
-        throw new ApiError(401, "token error")
-      }
-
-      req.user = user
-
-      next()
-
-    } catch (error) {
-        throw new ApiError(400, `${error.message}`)
+    if(!req.user) {
+       verifyJWT()
     }
-}
 
-const VerifyAdmin = async(req,_,next) => {
-   const Admin = req.user
+  if (req.user.role !== "admin") {
+    throw new ApiError(403, "Only admin can perform this action")
+  }
 
-   if(Admin.role === "admin") {
-    throw new ApiError(401, "Admin are only excute this action")
-   }
-
-}
-
-
-export  {
-  VerifyJWT,
-  VerifyAdmin
-}
+  next()
+})

@@ -14,7 +14,7 @@ const app = express()
 
 app.use(cors({
   origin : corsOrigin,
-  Credential : true
+  credentials : true
 }))
 
 app.use(express.json({limit : "2mb"}))
@@ -28,15 +28,17 @@ app.use(cookieParser())
 //  routes import
 import HealthRouter from './routes/health.route.js'
 import AuthRouter from './routes/user.route.js'
-
-
-
+import MenuRouter from './routes/menu.route.js'
+import OrderRouter from './routes/order.route.js'
+import PaymentRouter from './routes/payment.route.js'
 
 
 // ---------------------------------------------------------------------
 // routes
-app.use(`${defaultRouter}/health`, HealthRouter)
-app.use(`${defaultRouter}/auth`, AuthRouter)
+app.use("/restaurant/api/v1/auth" , AuthRouter)
+app.use("/restaurant/api/v1/menu" , MenuRouter)
+app.use("/restaurant/api/v1/order" , OrderRouter)
+app.use("/restaurant/api/v1/payment" , PaymentRouter)
 
 
 
@@ -44,7 +46,7 @@ app.use(`${defaultRouter}/auth`, AuthRouter)
 
 // ---------------------------------------------------------------------
 // not found route
-app.use("*", (_,res)=>{
+app.use("*", (req,res)=>{
   res.status(404).json(new ApiResponse(404, {}, "route not found"))
 })
 

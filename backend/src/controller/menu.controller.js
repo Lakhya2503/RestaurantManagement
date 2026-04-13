@@ -9,15 +9,19 @@ const addNewMenu = asyncHandler(async(req,res)=>{
 
     requredField([itemDescription, itemName, priceOfItem, itemCategory])
 
+    console.log({ itemName, itemDescription, itemImage, priceOfItem, itemCategory })
+
+
     const menu = await Menu.create({
         itemsName : itemName,
         itemDescription : itemDescription,
-        itemImage : itemImage.url,
-        itemCategory : itemCategory
+        itemImage : itemImage,
+        itemCategory : itemCategory,
+        priceOfItem : priceOfItem,
     })
 
     return res.status(201).
-    json(new ApiResponse(201, {},`${menu.itemName} in menu add successfully` ))
+    json(new ApiResponse(201, {},`${menu.itemsName} in menu add successfully` ))
 
 })
 

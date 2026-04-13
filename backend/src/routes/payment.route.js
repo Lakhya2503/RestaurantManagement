@@ -1,13 +1,12 @@
 import Router from 'express'
-import { createOrder } from '../controller/order.controller.js'
+
 import { verifyJWT } from '../middleware/auth.middelware.js'
+import newPayment from '../controller/payment.controller.js'
 
 
 const router = Router()
 
-router.route('/add/new-order').post(verifyJWT, createOrder)
-
-
+router.route("/new-payment/:orderId").post(verifyJWT, newPayment)
 
 
 export default router

@@ -1,29 +1,57 @@
 import mongoose from 'mongoose'
-import { orderTypeEnums } from '../utils/constants.js'
+import {
+  orderTypeEnums,
+   orderType,
+   OrderStatusEnums
+  } from '../utils/constants.js'
 
 const orderSchema = new mongoose.Schema(
   {
+      items : [
+              {
+                  itemId : {
+                    type : mongoose.Schema.Types.ObjectId,
+                    ref : "Menu"
+                  },
+                  qunatity : {
+                    type : Number,
+                    default : 1
+                  }
+              }
+      ],
       orderType : {
         type : String,
-        default : orderTypeEnums.HOMEDELIVERY ,
+        default : orderType.HOMEDELIVERY ,
         enum : orderTypeEnums
       },
       userId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "User"
       },
-      items : [
-        {
-            itemId : {
-              type : mongoose.Schema.Types.ObjectId,
-              ref : "Menu"
-            }
-        }
-      ],
+      address : {
+        type : String,
+        default : undefined
+      },
+      tableNo : {
+        type : Number,
+        default : undefined
+      },
       orderStatus : {
         type : String,
         default : OrderStatusEnums.PENDING,
-        enums : OrderStatusEnums
+        enum : OrderStatusEnums
+      },
+      activeOrder : {
+        type : Boolean
+      },
+      specialNotes : {
+        type : String,
+        default : undefined
+      },
+      paymentId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Payment",
+        default : undefined
       }
   }, { timestamps : true }
 )

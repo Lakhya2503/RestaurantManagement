@@ -1,11 +1,11 @@
-const userRoleEnums = {
+export const userRoleEnums = {
   ADMIN: "admin",
   USER : "user"
 }
 
 const AvailbleUserRole = Object.values(userRoleEnums)
 
-const itemCategory = {
+export const itemCategory = {
   STARTERS : "Starters",
   MAINCOURSE : "Main Course",
   PIZZAANDPASTA : "Pizza & Pasta",
@@ -16,24 +16,26 @@ const itemCategory = {
 
 const menuCategoryEnums = Object.values(itemCategory)
 
-const orderType = {
+export const orderType = {
     HOMEDELIVERY : "Home Delivery",
     TABLEORDER : "Table Order"
 }
 
+export const orderTypeEnums = Object.values(orderType)
 
-const orderStatus = {
+
+export const orderStatus = {
   PENDING : "Pending",
   CANCELLED : "Cancelled",
   PREPARING : "Preparing",
   READY : "Ready",
-  DELIVERED :  "Delivered"
+  DELIVERED :  "Delivered",
+  SERVED : "Served",
+  COMPLETED : "Completed",
+  ACTIVE : "active"
 }
 
-
 const OrderStatusEnums = Object.values(orderStatus)
-
-const orderTypeEnums = Object.values(orderType)
 
 const userLoginType = {
   GOOGLE : "GOOGLE",
@@ -45,8 +47,13 @@ const AvailbleSocialLogins = Object.values(userLoginType)
 const USER_TEMPORARY_TOKEN = 20 * 60 * 1000
 
 
+export const paymentType = {
+  ONLINE : "Online",
+  CASHONDELIVERY : "Cash On Delivery"
+}
 
 
+const paymentTypeEnums = Object.values(paymentType)
 
 
 export {
@@ -54,6 +61,6 @@ export {
   AvailbleSocialLogins,
   USER_TEMPORARY_TOKEN,
   menuCategoryEnums,
-  orderTypeEnums,
-  OrderStatusEnums
+  OrderStatusEnums,
+  paymentTypeEnums
 }
