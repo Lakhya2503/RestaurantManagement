@@ -20,3 +20,7 @@ export const rozarPayKeySecret = String(process.env.RAZORPAY_KEY_SECRET)
 export const googleCallbackUrL = String(process.env.GOOGLE_CALLBACK_URL)
 export const googleClientId =  String(process.env.GOOGLE_CLIENT_ID)
 export const googleClientSecret = String(process.env.GOOGLE_CLIENT_SECRET)
+export const brevoApiKey = String(process.env.BREVO_API_KEY)
+export const brevoSenderName = String(process.env.BREVO_SENDER_NAME)
+export const brevoSenderEmail = String(process.env.BREVO_SENDER_EMAIL)
+

@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import ApiResponse from './utils/ApiResponse.js'
-import { corsOrigin, defaultRouter } from './utils/config.js'
+import { corsOrigin } from './utils/config.js'
 
 dotenv.config({
   path : "./.env"
@@ -31,6 +31,7 @@ import AuthRouter from './routes/user.route.js'
 import MenuRouter from './routes/menu.route.js'
 import OrderRouter from './routes/order.route.js'
 import PaymentRouter from './routes/payment.route.js'
+import ReservationRouter from './routes/reservation.route.js'
 
 
 // ---------------------------------------------------------------------
@@ -39,6 +40,7 @@ app.use("/restaurant/api/v1/auth" , AuthRouter)
 app.use("/restaurant/api/v1/menu" , MenuRouter)
 app.use("/restaurant/api/v1/order" , OrderRouter)
 app.use("/restaurant/api/v1/payment" , PaymentRouter)
+app.use("/restaurant/api/v1/reserve" , ReservationRouter)
 
 
 

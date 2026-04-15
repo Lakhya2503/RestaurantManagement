@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { tableReservationStatus, tableReservationStatusEnums } from '../utils/constants';
+import { tableReservationStatus, tableReservationStatusEnums } from '../utils/constants.js';
 
 const resevationSchema = new mongoose.Schema(
   {
@@ -7,6 +7,17 @@ const resevationSchema = new mongoose.Schema(
       type : String,
       require : true,
       trim : true
+    },
+    reservationUserEmail : {
+        type : String,
+        required: true,
+        unique : true,
+        lowercase : true,
+         match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email format is incorrect. Use a valid format such as name@example.com (e.g., janesmith@gmail.com) .']
+    },
+    reservationUserId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
     },
     phoneNumber : {
       type : Number,
